@@ -20,21 +20,40 @@ export class RandomNumberComponent implements OnInit {
     const user: Observable<any> = this.random.getGetUser();
     user.subscribe(res => {
       console.log('user', res);
+    }, error => {
+      console.error('user', error);
     });
 
     const user1: Observable<any> = this.random.getGetUser();
     user1.subscribe(res => {
       console.log('user1', res);
+    }, error => {
+      console.error('user1', error);
     });
 
-    const user13: Observable<any> = this.random.getGetUser();
-    user13.subscribe(res => {
-      console.log('user13', res);
-    }, err => {
-      console.error('user13', err);
+    const user2: Observable<any> = this.random.getGetUser();
+    user2.subscribe(res => {
+      console.log('user2', res);
+    }, error => {
+      console.error('user2', error);
     });
+
+    // const user13: Observable<any> = this.random.getGetUserV1();
+    // user13.subscribe(res => {
+    //   console.log('user13', res);
+    // }, err => {
+    //   console.error('user13', err);
+    // });
   }
 
+  getuser() {
+    const user1: Observable<any> = this.random.getGetUser();
+    user1.subscribe(res => {
+      console.log('user1', res);
+    }, error => {
+      console.error('user1', error);
+    });
+  }
   logout() {
     this.authService.logout()
       .subscribe(success => {

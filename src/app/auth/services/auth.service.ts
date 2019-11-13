@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
-import { catchError, mapTo, tap } from 'rxjs/operators';
+import { of, Observable, throwError } from 'rxjs';
+import { catchError, mapTo, tap, map } from 'rxjs/operators';
 import { config } from './../../config';
 import { Tokens } from '../models/tokens';
 
@@ -44,14 +44,16 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.http.post<any>(`${config.apiUrl}/refreshtoken`, {
+    return this.http.post<any>(`${config.apiUrl}/v2/refreshtoken`, {
       'refreshToken': this.getRefreshToken()
-    }).pipe(tap((tokens: Tokens) => {
+    }).pipe(
+      tap((tokens: Tokens) => {
       this.storeJwtToken(tokens.jwt);
-    }), catchError(error => {
-      // alert(error.error);
-      return of(false);
-    }));
+    }), map(data => {
+      console.log(data)
+      return data
+    })
+    );
   }
 
   getJwtToken() {
